@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hand.infra.mapper.CustomerMapper">
+    <resultMap id="BaseResultMap" type="com.hand.domain.entity.Customer">
+        <id column="customer_id" property="customerId" jdbcType="SMALLINT"/>
+        <result column="store_id" property="storeId" jdbcType="TINYINT"/>
+        <result column="first_name" property="firstName" jdbcType="VARCHAR"/>
+        <result column="last_name" property="lastName" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="address_id" property="addressId" jdbcType="SMALLINT"/>
+        <result column="active" property="active" jdbcType="BIT"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="last_update" property="lastUpdate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        customer_id, store_id, first_name, last_name, email, address_id, active, create_date,
+        last_update
+    </sql>
+
+    <select id="login" resultType="java.lang.Integer">
+        select customer_id from customer
+        where customer.first_name=#{name}
+        AND customer.last_name=#{password}
+    </select>
+
+    <select id="getIdByName" resultType="java.lang.Integer">
+        select customer_id from customer
+        where customer.first_name=#{firstName}
+    </select>
+
+    <select id="getAddressId" resultType="java.lang.Integer">
+        select address_id from address
+        where address=#{address}
+    </select>
+
+    <select id="getById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from customer
+        where customer_id = #{id}
+    </select>
+
+    <insert id="addCustomer" parameterType="java.util.Map">
+        insert into customer(store_id,first_name,last_name,email,address_id)
+        values (2,#{firstName},#{lastName},#{email},#{addressId})
+    </insert>
+
+    <update id="updateCustomer" parameterType="java.util.Map">
+        update customer
+        set first_name = #{firstName},
+          last_name = #{lastName},
+          email = #{email},
+          address_id = #{addressId},
+          last_update = #{lastUpdate}
+        where customer_id = #{id}
+    </update>
+
+    <delete id="deleteCustomer" parameterType="java.lang.Integer">
+      delete from customer
+      where customer_id = #{id}
+    </delete>
+
+</mapper>
