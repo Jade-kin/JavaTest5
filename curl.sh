@@ -11,7 +11,7 @@ curl -H "Content-Type: application/json" -X PUT --data '{"firstName":"Zhang","la
 echo "----------------------------------------------------"
 
 ## updateCustomer
-curl -H "Content-Type: application/json" -X PUT --data '{"firstName":"Li","lastName":"si","email":"7654321@qq.com","address":"47 MySakila Drive"}' http://192.168.99.100:9090/customer/updateCustomer
+curl -H "Content-Type: application/json" -X POST --data '{"firstName":"Li","lastName":"si","email":"7654321@qq.com","address":"47 MySakila Drive"}' http://192.168.99.100:9090/customer/updateCustomer
 echo "----------------------------------------------------"
 
 ## deleteCustomer
